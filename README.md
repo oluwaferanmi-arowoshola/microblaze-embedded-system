@@ -76,7 +76,7 @@ The firmware source is included in the `firmware/` directory.
 
 ### Core Control Logic
 
-``c
+```c
 while (1) {
     u32 sw_val = XGpio_DiscreteRead(&sw_gpio, 1);
     XGpio_DiscreteWrite(&led_gpio, 1, sw_val);
@@ -93,6 +93,7 @@ The console output confirms:
 - platform startup
 - successful GPIO initialization
 - runtime execution of the GPIO control loop
+```
 
 ---
 
