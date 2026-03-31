@@ -121,11 +121,6 @@ This approach demonstrates:
 
 ---
 
-## Repository Structure
-
-- `firmware/` – C firmware source files used in Vitis
-- `docs/` – synthesis screenshots, implementation screenshots, runtime console image, and demonstration video
-
 ## Tools Used
 
 - Xilinx Vivado
