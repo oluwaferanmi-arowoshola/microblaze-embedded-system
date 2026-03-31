@@ -23,14 +23,22 @@ The firmware continuously reads switch values through memory-mapped GPIO and wri
 
 ## System Architecture
 
-Although the original Vivado block design image is not included in this repository, the implemented system architecture consists of:
+This system is built around a MicroBlaze soft processor implemented on the FPGA.
 
-- MicroBlaze processor
-- AXI-connected GPIO for switch input
-- AXI-connected GPIO for LED output
-- UART interface for runtime messages
+- MicroBlaze communicates with peripherals via the AXI bus
+- Two AXI GPIO blocks are used:
+  - Input GPIO (connected to slide switches)
+  - Output GPIO (connected to LEDs)
 
-The synthesized schematic below represents the implemented hardware structure.
+The processor reads switch states as a bit vector and writes the same value to the LEDs, enabling real-time hardware interaction.
+
+### What This Project Demonstrates
+
+- Soft-core processor design using MicroBlaze
+- AXI-based peripheral interfacing
+- Memory-mapped I/O in embedded systems
+- Real-time interaction between hardware inputs and outputs
+- FPGA-based embedded system deployment
 
 ---
 
@@ -88,14 +96,14 @@ The console output confirms:
 
 ---
 
-## Hardware Demonstration
+## Hardware Validation
 
-A demonstration video is included in the `docs/` folder showing the project running and switch inputs controlling LED outputs in real time.on the Nexys DDR board.
+A hardware test was performed and the demonstration video is included in the `docs/` folder showing the physical slide switches on the FPGA board were toggled, and the corresponding LEDs responded immediately.
 
 Verified hardware behavior:
-- flipping slide switches changes the LED outputs
-- MicroBlaze firmware successfully interfaces with board peripherals
-- switch-to-LED mapping works on physical hardware
+- correct GPIO configuration
+- correct AXI communication
+- successful deployment on hardware
 
 ---
 
