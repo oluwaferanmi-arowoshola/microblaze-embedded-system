@@ -150,6 +150,8 @@ This project was developed as part of FPGA and embedded systems coursework focus
 
 ## Author
 
-Oluwaferanmi Arowoshola  
-Electrical & Computer Engineering  
-Minnesota State University, Mankato
+Oluwaferanmi Arowoshola
+
+M.S. Electrical & Computer Engineering
+
+Embedded Systems · Real-Time Systems · IoT
