@@ -66,6 +66,16 @@ The firmware source is included in the `firmware/` directory.
 
 ---
 
+### Core Control Logic
+
+``c
+while (1) {
+    u32 sw_val = XGpio_DiscreteRead(&sw_gpio, 1);
+    XGpio_DiscreteWrite(&led_gpio, 1, sw_val);
+}
+
+---
+
 ## Vitis Build / Runtime View
 
 ![Vitis Console](docs/vitis_console.PNG)
@@ -80,12 +90,25 @@ The console output confirms:
 
 ## Hardware Demonstration
 
-A demonstration video is included in the `docs/` folder showing the project running on the Nexys DDR board.
+A demonstration video is included in the `docs/` folder showing the project running and switch inputs controlling LED outputs in real time.on the Nexys DDR board.
 
 Verified hardware behavior:
 - flipping slide switches changes the LED outputs
 - MicroBlaze firmware successfully interfaces with board peripherals
 - switch-to-LED mapping works on physical hardware
+
+---
+
+## Design Insight
+
+The system uses memory-mapped I/O through AXI GPIO peripherals.  
+Switch states are read as a bit vector from the input GPIO, and the same value is written to the LED GPIO output.
+
+This approach demonstrates:
+
+- hardware/software co-design using MicroBlaze
+- AXI-based peripheral communication
+- real-time interaction between FPGA I/O and embedded firmware
 
 ---
 
