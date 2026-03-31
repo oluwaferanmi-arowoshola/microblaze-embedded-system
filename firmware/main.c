@@ -50,86 +50,53 @@
 #include "xil_printf.h"
 #include "xgpio.h"
 
+#define INPUT  0xFFFFFFFF
+#define OUTPUT 0x00000000
+
 XGpio sw_gpio, led_gpio;
 
 void driverInit(){
+    int Status;
 
-	int Status;
-	print("Initialization of switch gpio\n\r");
-	Status = XGpio_Initialize(&sw_gpio,XPAR_GPIO_SW_DEVICE_ID); //XGpio_Initialize(&sw_gpio, XPAR_GPIO_SW_DEVICE_ID);
-	if(Status != XST_SUCCESS){
-		print("Failed\n\r");
-	}
-	else{
-		print("Success\n\r");
-		XGpio_SetDataDirection(&sw_gpio,1,1);
-	}
+    print("Initialization of switch gpio\n\r");
+    Status = XGpio_Initialize(&sw_gpio, XPAR_GPIO_SW_DEVICE_ID);
+    if(Status != XST_SUCCESS){
+        print("Failed\n\r");
+        return;
+    } else {
+        print("Success\n\r");
+        XGpio_SetDataDirection(&sw_gpio, 1, INPUT);
+    }
 
-	print("Initialization of led gpio\n\r");
-	Status = XGpio_Initialize(&led_gpio,XPAR_GPIO_LED_DEVICE_ID);
-	if(Status != XST_SUCCESS){
-		print("Failed\n\r");
-	}
-	else{
-		print("Success\n\r");
-		XGpio_SetDataDirection(&led_gpio,1,0);
-		XGpio_DiscreteWrite(&led_gpio,1,0);
-	}
+    print("Initialization of led gpio\n\r");
+    Status = XGpio_Initialize(&led_gpio, XPAR_GPIO_LED_DEVICE_ID);
+    if(Status != XST_SUCCESS){
+        print("Failed\n\r");
+        return;
+    } else {
+        print("Success\n\r");
+        XGpio_SetDataDirection(&led_gpio, 1, OUTPUT);
+        XGpio_DiscreteWrite(&led_gpio, 1, 0);
+    }
 }
 
 int main()
 {
     unsigned int sw_val;
 
-	init_platform();
+    init_platform();
 
     print("Hello World\n\r");
 
     driverInit();
 
     print("Running GPIO\n\r");
-   // XGpio DiscreteWrite(&led gpio, 1, 0x8000);
+
     while(1)
     {
-    	sw_val=XGpio_DiscreteRead(&sw_gpio, 1);
-    	switch(sw_val) {
-    	case 0:
-    		XGpio_DiscreteWrite(&led_gpio, 1, 0x0);
-    		break;
-    	case 1:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x1);
-    	    break;
-    	case 2:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x2);
-    	    break;
-    	case 4:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x4);
-    	    break;
-    	case 8:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x8);
-    	    break;
-    	case 16:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x10);
-    	    break;
-    	case 32:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x20);
-    	    break;
-    	case 64:
-    	    XGpio_DiscreteWrite(&led_gpio, 1, 0x40);
-    	    break;
-    	case 128:
-    	   	XGpio_DiscreteWrite(&led_gpio, 1, 0x80);
-    	    break;
-    	case 256://8 bit
-    	   	XGpio_DiscreteWrite(&led_gpio, 1, 0x100);
-     		break;
-    	default:
-    	   // print("default\n\r");
-    		break;
-    	}
+        sw_val = XGpio_DiscreteRead(&sw_gpio, 1);
+        XGpio_DiscreteWrite(&led_gpio, 1, sw_val);
     }
-    print("Successfully ran Hello World application\n\r");
-
 
     cleanup_platform();
     return 0;
