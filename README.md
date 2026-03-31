@@ -134,6 +134,19 @@ This approach demonstrates:
 - MicroBlaze soft processor
 - Nexys DDR FPGA board
 
+---
+
+## Project Structure
+
+```text
+.
+├── docs/
+├── firmware/
+└── README.md
+```
+
+---
+
 ## Notes
 
 This project was developed as part of FPGA and embedded systems coursework focused on hardware/software integration using a soft-core processor architecture.
